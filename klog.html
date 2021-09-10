@@ -13,17 +13,19 @@
                 //Listen for & records key strokes & save to array
                 window.addEventListener("keydown", function(event){
                     kslog.keystore.push(event.key)
+                    console.log(kslog.keystore)
                 }); 
 
             }
 
         };
-
-        window.addEventListener("DOMContentLoaded", keylog.init);
+                                                        // error .init
+        window.addEventListener("DOMContentLoaded", kslog.klog);
 
     </script>
 </head>
 <body>
     <h1>Stroke Log</h1>
+    <textarea></textarea>
 </body>
 </html>
